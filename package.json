@@ -1,0 +1,26 @@
+{
+  "name": "spycat",
+  "version": "1.0.0",
+  "description": "reporting module for taskcat",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NerdCats/SpyCat.git"
+  },
+  "keywords": [
+    "reporting"
+  ],
+  "author": "muhammed tareq aziz",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/NerdCats/SpyCat/issues"
+  },
+  "homepage": "https://github.com/NerdCats/SpyCat#readme",
+  "dependencies": {
+    "mongoose": "^4.6.0"
+  }
+}
