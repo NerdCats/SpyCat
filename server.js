@@ -1,4 +1,5 @@
 var express = require('express');
+var calculate = require('./calculate');
 var app = express();
 var bodyParser = require('body-parser');
 
@@ -19,22 +20,31 @@ router.get('/', function(req, res){
 });
 
 router.get('/report', function (req, res) {
-	var data = [];
+	console.log("report : ");
+	console.log(req.query);
+	var jobs = [];
+	var startdate = req.query.startdate;
+	var enddate = req.query.enddate;
+	console.log(startdate + "  " + enddate);
 	MongoClient.connect(url, function (err, db) {
-		assert.equal(null, err);
-		var cursor = db.collection('Jobs').find();
+		assert.equal(null, err);		
+		var cursor = db.collection('Jobs').find({
+		    CreateTime: {
+		        $gte: new Date(startdate),
+		        $lt: new Date(enddate)
+		    }
+		});
 		cursor.each(function (err, doc) {
 			assert.equal(err, null);
-			if(doc!=null){
-				console.log(doc.HRID)
-				data.push(doc.HRID);
+			if(doc!=null){				
+				jobs.push(doc);
 			} else {
-				db.close();
+				db.close();				
+				var data = calculate.summaryReport(jobs);				
+				res.json({ data });
 			}
 		})
-	})
-	res.json({ data });
-	console.log("report : ")
+	});	
 })
 
 app.use('/api', router);
