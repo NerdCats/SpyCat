@@ -1,6 +1,9 @@
 var express = require('express');
 var calculate = require('./calculate');
+var cors = require('cors')
 var app = express();
+app.use(cors());
+
 var bodyParser = require('body-parser');
 
 var assert = require('assert');
@@ -26,6 +29,7 @@ router.get('/report', function (req, res) {
 	var startdate = req.query.startdate;
 	var enddate = req.query.enddate;
 	var userType = req.query.usertype || "ENTERPRISE";
+	console.log(userType)
 	console.log(startdate + "  " + enddate);
 	MongoClient.connect(url, function (err, db) {
 		assert.equal(null, err);		
