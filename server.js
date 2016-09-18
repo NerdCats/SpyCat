@@ -25,14 +25,16 @@ router.get('/report', function (req, res) {
 	var jobs = [];
 	var startdate = req.query.startdate;
 	var enddate = req.query.enddate;
+	var userType = req.query.usertype || "ENTERPRISE";
 	console.log(startdate + "  " + enddate);
 	MongoClient.connect(url, function (err, db) {
 		assert.equal(null, err);		
 		var cursor = db.collection('Jobs').find({
-		    CreateTime: {
+		    "CreateTime" : {
 		        $gte: new Date(startdate),
-		        $lt: new Date(enddate)
-		    }
+		        $lt: new Date(enddate),
+		    },
+		    "User.Type" : userType
 		});
 		cursor.each(function (err, doc) {
 			assert.equal(err, null);
