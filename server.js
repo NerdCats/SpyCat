@@ -1,5 +1,7 @@
 var express = require('express');
 var calculate = require('./calculate');
+var utility = require('./utility');
+var queryMaker = require('./queryMaker');
 var cors = require('cors')
 var app = express();
 app.use(cors());
@@ -22,36 +24,36 @@ router.get('/', function(req, res){
 	console.log("home : ");
 });
 
+
+
 router.get('/report', function (req, res) {
-	console.log("report : ");
+	console.log("\n\n/report : ");
 	console.log(req.query);
-	var jobs = [];
-	var startdate = req.query.startdate;
-	var enddate = req.query.enddate;
-	var userType = req.query.usertype || "ENTERPRISE";
-	console.log(userType)
-	console.log(startdate + "  " + enddate);
-	MongoClient.connect(url, function (err, db) {
-		assert.equal(null, err);		
-		var cursor = db.collection('Jobs').find({
-		    "CreateTime" : {
-		        $gte: new Date(startdate),
-		        $lt: new Date(enddate),
-		    },
-		    "User.Type" : userType
+	
+	var paramValid = utility.reportParamChecker(req);
+	if (!paramValid.valid) {
+		res.json({ error : paramValid.msg })
+	} else {		
+		var report = {};
+		MongoClient.connect(url, function (err, db) {
+			assert.equal(null, err);
+			var query = queryMaker.reportQuery(req);
+			console.log(query)
+			var cursor = db.collection('Jobs').find(query);
+			cursor.each(function (err, job) {
+				assert.equal(err, null);
+				if(job!=null){				
+					report = calculate.summaryReport(req, report, job);
+				} else {
+					db.close();				
+					res.json({ data: report });
+				}
+			})
 		});
-		cursor.each(function (err, doc) {
-			assert.equal(err, null);
-			if(doc!=null){				
-				jobs.push(doc);
-			} else {
-				db.close();				
-				var data = calculate.summaryReport(jobs);				
-				res.json({ data });
-			}
-		})
-	});	
-})
+	}
+});
+
+
 
 app.use('/api', router);
 
