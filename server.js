@@ -69,6 +69,45 @@ router.get('/report', function (req, res) {
 });
 
 
+router.get('/details', function (req, res) {
+	var paramValid = utility.reportParamChecker(req);
+	if (!paramValid.valid) {
+		res.json({ error : paramValid.msg })
+	} else {		
+		var report = [];
+		MongoClient.connect(url, function (err, db) {
+			assert.equal(null, err);
+			var query = queryMaker.reportQuery(req);
+			console.log(req.query.generateexcel);
+			console.log(query)
+			var cursor = db.collection('Jobs').find(query);
+			cursor.each(function (err, job) {
+				assert.equal(err, null);
+				if(job!=null){				
+					report.push(job);
+				} else {
+					db.close();
+					if (req.query.generateexcel == "true") {
+						var excelReport = excelCreator.getSummaryReport(report);
+						
+						excelReport.workbook.save(function(ok){
+							console.log(ok)
+							console.log(excelReport.workbookFilePath)
+							if (!ok) {								
+								res.download(excelReport.workbookFilePath);
+							} else							
+								res.json({ errorMessage: "couldn't create excel report!"});
+						});						
+					} else {
+						res.json({ data: report });
+					}
+				}
+			})
+		});
+	}
+});
+
+
 
 app.use('/api', router);
 
