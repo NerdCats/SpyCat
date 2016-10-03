@@ -23,5 +23,27 @@ module.exports = {
 				valid: false
 			}
 		else return {valid: true};		
+	},
+
+	getProductNames : function (PackageList) {
+		var packages = PackageList.map(function (package) {
+			return  "Name: " + package.Item + 
+					", Quantity :" + package.Quantity + 
+					", Price: " + package.Price + 
+					", Weight: " + package.Weight;
+		});
+		var package = "";
+		for (var i = packages.length - 1; i >= 0; i--) {
+			package += packages[i] + "\n";
+		}
+		return package;
+	},
+
+	getDeliveryPersonNames : function (Assets) {
+		var assetNames = "";
+		for (var i = Object.keys(Assets).length - 1; i >= 0; i--) {
+			assetNames = Assets[Object.keys(Assets)[i]].UserName;
+		}
+		return assetNames;
 	}
 }

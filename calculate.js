@@ -51,5 +51,69 @@ module.exports = {
 			}
 		}		
 		return report;
+	},
+
+	detailsReport: function (report, job) {
+		var moment = require('moment');
+		var utility = require('./utility');
+		var entry = {};
+
+		entry.trackingNumber = job.HRID
+		entry.Client = job.User.Type
+
+		entry.OrderingDate = moment(job.CreateTime).format('LL');
+		entry.OrderingTime = moment(job.CreateTime).format('LT');
+
+		entry.DeliveryDate = moment(job.ETA).format('LL');
+		entry.DeliveryDate = moment(job.ETA).format('LT');
+		
+
+		entry.DeliveryType = job.Order.Type;
+		
+		entry.UserName = job.User.UserName;
+		entry.UserPhone = job.User.PhoneNumber;
+
+		entry.PickupAddress = job.Order.From.Address;
+		entry.PickupArea = job.Order.From.Locality;
+		entry.DeliveryAddress = job.Order.To.Address;
+		entry.DeliveryArea = job.Order.To.Locality;
+
+
+		entry.ProductDescription = job.Order.Description;
+
+		entry.Product = utility.getProductNames(job.Order.OrderCart.PackageList);
+		// entry.Qty = job.Order.OrderCart.PackageList[0].Quantity
+		entry.Weight = job.Order.OrderCart.TotalWeight;
+		entry.TotalProductPrice = job.Order.OrderCart.SubTotal;
+		entry.DeliveryCharge = job.Order.OrderCart.ServiceCharge;
+		entry.VAT = job.Order.OrderCart.TotalVATAmount;
+		entry.Total = job.Order.OrderCart.TotalToPay;
+
+		entry.DeliveryPerson = utility.getDeliveryPersonNames(job.Assets);
+		
+		entry.PickupStartDate = moment(job.Tasks[1].Started).format('LL');
+		entry.PickupStartTime = moment(job.Tasks[1].Started).format('LT');
+
+		entry.PickupCompleteDate = moment(job.Tasks[1].Completed).format('LL');
+		entry.PickupCompleteTime = moment(job.Tasks[1].Completed).format('LT');
+		
+		entry.DeliveryStartTime = moment(job.Tasks[2].Started).format('LL');
+		entry.DeliveryCompleteTime = moment(job.Tasks[2].Completed).format('LT');
+		
+
+		entry.TotalDeliveryTime = moment.duration(moment(job.Tasks[2].Started).diff(moment(job.Tasks[2].Completed))).asHours();
+
+		entry.Status = job.State
+		entry.PaymentStatus = job.PaymentStatus
+
+		
+		entry.VendorInvoiceNo = null;
+		entry.Commission = null;
+		entry.CashRecieved = null;
+		entry.KM = null;
+		entry.ProductType = null;
+		entry.Comment = null;
+
+		return entry;
 	}
 }

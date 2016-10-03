@@ -26,6 +26,12 @@ router.get('/', function(req, res){
 });
 
 
+// Parameters:
+// usertype = USER BIKE_MESSENGER ENTERPRISE
+// userid = Asset's user id
+// startdate = ISOdate
+// enddate = ISOdate
+// generateexcel = boolean
 
 router.get('/report', function (req, res) {
 	console.log("\n\n/report : ");
@@ -39,8 +45,6 @@ router.get('/report', function (req, res) {
 		MongoClient.connect(url, function (err, db) {
 			assert.equal(null, err);
 			var query = queryMaker.reportQuery(req);
-			console.log(req.query.generateexcel);
-			console.log(query)
 			var cursor = db.collection('Jobs').find(query);
 			cursor.each(function (err, job) {
 				assert.equal(err, null);
@@ -69,6 +73,13 @@ router.get('/report', function (req, res) {
 });
 
 
+
+// Parameters:
+// usertype = USER BIKE_MESSENGER ENTERPRISE
+// userid = Asset's user id
+// startdate = ISOdate
+// enddate = ISOdate
+// generateexcel = boolean
 router.get('/details', function (req, res) {
 	var paramValid = utility.reportParamChecker(req);
 	if (!paramValid.valid) {
@@ -83,12 +94,13 @@ router.get('/details', function (req, res) {
 			var cursor = db.collection('Jobs').find(query);
 			cursor.each(function (err, job) {
 				assert.equal(err, null);
-				if(job!=null){				
-					report.push(job);
+				if(job!=null){
+					var entry = calculate.detailsReport(report, job);				
+					report.push(entry);
 				} else {
 					db.close();
 					if (req.query.generateexcel == "true") {
-						var excelReport = excelCreator.getSummaryReport(report);
+						var excelReport = excelCreator.getDetailsReport(report);
 						
 						excelReport.workbook.save(function(ok){
 							console.log(ok)
