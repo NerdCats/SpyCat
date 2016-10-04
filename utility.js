@@ -62,5 +62,25 @@ module.exports = {
 			return taskETA.Type === eta;
 		}
 		return jobTaskPreferenceETA.find(findEta);
+	},
+
+	getTime : function (time) {
+		var moment = require('moment');
+		if (time) {
+			return moment(time).format('LT');
+		} else return "Not Mentioned";
+	},
+
+	getDate : function (time) {
+		var moment = require('moment');
+		if (time) {
+			return moment(time).format('LL')
+		} else return "Not Mentioned";
+	},
+
+	getHoursDifference: function (startTime, endTime) {
+		var moment = require('moment');	
+		if (!startTime || !endTime) return "-"
+		return moment.duration(moment(startTime).diff(moment(endTime))).asHours();
 	}
 }

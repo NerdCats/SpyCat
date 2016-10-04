@@ -54,21 +54,28 @@ module.exports = {
 	},
 
 	detailsReport: function (report, job) {
-		var moment = require('moment');
+		
 		var utility = require('./utility');
 		var entry = {};
 
 		entry.trackingNumber = job.HRID
 		entry.DeliveryType = job.Order.Type;
 
-		entry.OrderingDate = moment(job.CreateTime).format('LL');
-		entry.OrderingTime = moment(job.CreateTime).format('LT');
+		entry.Status = job.State;
+		entry.PaymentStatus = job.PaymentStatus;
 
-		entry.CompletionETADate = moment(job.ETA).format('LL');
-		entry.CompletionETATime = moment(job.ETA).format('LT');
+		entry.OrderingDate = utility.getDate(job.CreateTime);
+		entry.OrderingTime = utility.getTime(job.CreateTime);
+
+		entry.CompletionETADate = "Not Completed";
+		entry.CompletionETATime = "Not Completed";
+		if (job.Order.ETA !== undefined) {
+			entry.CompletionETADate = utility.getDate(job.ETA);
+			entry.CompletionETATime = utility.getTime(job.ETA);
+		}
 		
-		entry.CompleteDate = moment(job.CompletionTime).format('LL');
-		entry.CompleteTime = moment(job.CompletionTime).format('LT');
+		entry.CompleteDate = utility.getDate(job.CompletionTime);
+		entry.CompleteTime = utility.getTime(job.CompletionTime);
 
 		// User, DeliveryMan info
 		entry.ClientType = utility.getClientType(job.User.Type);
@@ -90,78 +97,78 @@ module.exports = {
 		entry.DeliveryCharge = job.Order.OrderCart.ServiceCharge;
 		entry.VAT = job.Order.OrderCart.TotalVATAmount;
 		entry.Total = job.Order.OrderCart.TotalToPay;
+		entry.SpecialNote = job.Order.NoteToDeliveryMan;
 		
 		
 		// Pickup Info
 		entry.PickupStatus = job.Tasks[1].State;		
-		entry.PickupETADate = "Not Mentioned";
+		entry.PickupETADate;
 		entry.PickupETATime = "Not Mentioned";
 		if (job.Order.JobTaskETAPreference !== undefined && job.Order.JobTaskETAPreference.length > 0) {
 			var pickupEta = utility.getJobTaskPreferenceETA("PackagePickUp" ,job.Order.JobTaskETAPreference);
 			if (pickupEta) {
-				entry.PickupETADate = moment(pickupEta.ETA).format('LL');
-				entry.PickupETATime = moment(pickupEta.ETA).format('LT');				
+				entry.PickupETADate = utility.getDate(pickupEta.ETA);
+				entry.PickupETATime = utility.getTime(pickupEta.ETA);
 			}
 		}
-		entry.PickupStartDate = moment(job.Tasks[1].Started).format('LL');
-		entry.PickupStartTime = moment(job.Tasks[1].Started).format('LT');
-		entry.PickupCompleteDate = moment(job.Tasks[1].Completed).format('LL');
-		entry.PickupCompleteTime = moment(job.Tasks[1].Completed).format('LT');
-		entry.TotalPickUpTime = moment.duration(moment(job.Tasks[1].Started).diff(moment(job.Tasks[1].Completed))).asHours();
+		entry.PickupStartDate = utility.getDate(job.Tasks[1].InitiationTime);
+		entry.PickupStartTime = utility.getTime(job.Tasks[1].InitiationTime);
+		entry.PickupCompleteDate = utility.getDate(job.Tasks[1].CompletionTime);
+		entry.PickupCompleteTime = utility.getTime(job.Tasks[1].CompletionTime);
+		entry.TotalPickUpTime = utility.getHoursDifference(job.Tasks[1].InitiationTime, job.Tasks[1].CompletionTime);
 		
 
 
 		// Delivery Info
 		entry.DeliveryStatus = job.Tasks[2].State;
-		entry.DeliveryETADate = "Not Mentioned";
+		entry.DeliveryETADate;
 		entry.DeliveryETATime = "Not Mentioned";
 		
 		if (job.Order.JobTaskETAPreference !== undefined && job.Order.JobTaskETAPreference.length > 0) {
 			var deliveryEta = utility.getJobTaskPreferenceETA("Delivery" ,job.Order.JobTaskETAPreference);			
 			if (deliveryEta) {
-				entry.DeliveryETADate = moment(deliveryEta.ETA).format('LL');
-				entry.DeliveryETATime = moment(deliveryEta.ETA).format('LT');				
+				entry.DeliveryETADate = utility.getDate(deliveryEta.ETA);
+				entry.DeliveryETATime = utility.getTime(deliveryEta.ETA);
 			}
 		}
 
-		entry.DeliveryStartDate = moment(job.Tasks[2].Started).format('LL');
-		entry.DeliveryStartTime = moment(job.Tasks[2].Started).format('LT');
-		entry.DeliveryCompleteDate = moment(job.Tasks[2].Completed).format('LL');
-		entry.DeliveryCompleteTime = moment(job.Tasks[2].Completed).format('LT');
-		entry.TotalDeliveryTime = moment.duration(moment(job.Tasks[2].Started).diff(moment(job.Tasks[2].Completed))).asHours();
+		entry.DeliveryStartDate = utility.getDate(job.Tasks[2].InitiationTime);
+		entry.DeliveryStartTime = utility.getTime(job.Tasks[2].InitiationTime);
+		entry.DeliveryCompleteDate = utility.getDate(job.Tasks[2].CompletionTime);
+		entry.DeliveryCompleteTime = utility.getTime(job.Tasks[2].CompletionTime);
+		entry.TotalDeliveryTime = utility.getHoursDifference(job.Tasks[2].InitiationTime, job.Tasks[2].CompletionTime);
 
 
 
 		// Cash Delivery Info
 		entry.CashDeliveryStatus = "Not Applicable";
-		entry.CashDeliveryStartDate = "Not Applicable";
+		entry.CashDeliveryStartDate;
 		entry.CashDeliveryStartTime = "Not Applicable";
-		entry.CashDeliveryCompleteDate = "Not Applicable";
+		entry.CashDeliveryCompleteDate;
 		entry.CashDeliveryCompleteTime = "Not Applicable";
 		entry.TotalCashDeliveryTime = "Not Applicable";
-		entry.CashDeliveryETADate = "Not Applicable";
+		entry.CashDeliveryETADate;
 		entry.CashDeliveryETATime = "Not Applicable";
 		if (job.Tasks[3]) {
 			entry.CashDeliveryStatus = job.Tasks[3].State;
 
-			entry.CashDeliveryETADate = "Not Mentioned";
+			entry.CashDeliveryETADate;
 			entry.CashDeliveryETATime = "Not Mentioned";
 			if (job.Order.JobTaskETAPreference !== undefined && job.Order.JobTaskETAPreference.length > 0) {
 				var cashDeliveryEta = utility.getJobTaskPreferenceETA("SecureCashDelivery" ,job.Order.JobTaskETAPreference);				
 				if (cashDeliveryEta) {
-					entry.CashDeliveryETADate = moment(cashDeliveryEta.ETA).format('LL');
-					entry.CashDeliveryETATime = moment(cashDeliveryEta.ETA).format('LT');					
+					entry.CashDeliveryETADate = utility.getDate(cashDeliveryEta.ETA);
+					entry.CashDeliveryETATime = utility.getTime(cashDeliveryEta.ETA);
 				}
 			}
-			entry.CashDeliveryStartDate = moment(job.Tasks[3].Started).format('LL');
-			entry.CashDeliveryStartTime = moment(job.Tasks[3].Started).format('LT');
-			entry.CashDeliveryCompleteDate = moment(job.Tasks[3].Completed).format('LL');
-			entry.CashDeliveryCompleteTime = moment(job.Tasks[3].Completed).format('LT');
-			entry.TotalCashDeliveryTime = moment.duration(moment(job.Tasks[3].Started).diff(moment(job.Tasks[3].Completed))).asHours();
+			entry.CashDeliveryStartDate = utility.getDate(job.Tasks[3].InitiationTime);
+			entry.CashDeliveryStartTime = utility.getTime(job.Tasks[3].InitiationTime);
+			entry.CashDeliveryCompleteDate = utility.getDate(job.Tasks[3].CompletionTime);
+			entry.CashDeliveryCompleteTime = utility.getTime(job.Tasks[3].CompletionTime);
+			entry.TotalCashDeliveryTime = utility.getHoursDifference(job.Tasks[3].InitiationTime, job.Tasks[3].CompletionTime);
 		}
 		
-		entry.Status = job.State;
-		entry.PaymentStatus = job.PaymentStatus;
+
 		
 		entry.VendorInvoiceNo = null;
 		entry.Commission = null;
