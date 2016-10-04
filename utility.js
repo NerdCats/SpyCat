@@ -45,5 +45,22 @@ module.exports = {
 			assetNames = Assets[Object.keys(Assets)[i]].UserName;
 		}
 		return assetNames;
+	},
+
+	getClientType : function (client) {
+		if (client === "USER") {
+			return "B2C";
+		} else if (client === "ENTERPRISE") {
+			return "B2B";
+		} else if (client === "BIKE_MESSENGER") {
+			return "DELIVERYMAN"
+		} else return "UNKNOWN";
+	},
+
+	getJobTaskPreferenceETA : function (eta, jobTaskPreferenceETA) {
+		function findEta(taskETA) {
+			return taskETA.Type === eta;
+		}
+		return jobTaskPreferenceETA.find(findEta);
 	}
 }

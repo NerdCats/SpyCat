@@ -44,7 +44,7 @@ module.exports = {
 		var workbook = excelbuilder.createWorkbook(directoryName, workbookName);					 	
 	 	var sheet1 = workbook.createSheet('sheet1', 34, report.length);
 
-	 	sheet1.set(1, 1, 'trackingNumber');
+	 	sheet1.set(1, 1, 'TrackingNumber');
 		sheet1.set(2, 1, 'Client');
 		sheet1.set(3, 1, 'OrderingDate');
 		sheet1.set(4, 1, 'OrderingTime');
