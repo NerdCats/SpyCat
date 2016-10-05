@@ -16,10 +16,14 @@ module.exports = {
 	 	sheet1.set(6, 1, 'Cancelled');
 	 	sheet1.set(7, 1, 'ProductPrice');
 	 	sheet1.set(8, 1, 'DeliveryCharge');
-		for (var row = 2; row <= 10; row++) {
+		for (var row = 2; row <= Object.keys(report).length; row++) {			
 			var reportBaseIndex = row - 2;
 			var key = Object.keys(report)[reportBaseIndex];
 			sheet1.set(1, row, key);
+			if (report[key].TotalDelivery === undefined) {
+				console.log()
+				console.log(report[key])
+			}
 			sheet1.set(2, row, report[key].TotalDelivery);
 		 	sheet1.set(3, row, report[key].TotalPending);
 		 	sheet1.set(4, row, report[key].TotalInProgress);
