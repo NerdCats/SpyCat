@@ -16,8 +16,10 @@ module.exports = {
 	 	sheet1.set(6, 1, 'Cancelled');
 	 	sheet1.set(7, 1, 'ProductPrice');
 	 	sheet1.set(8, 1, 'DeliveryCharge');
-		for (var row = 2; row <= Object.keys(report).length; row++) {			
+	 	console.log(Object.keys(report).length);
+		for (var row = 2; row <= Object.keys(report).length + 1; row++) {
 			var reportBaseIndex = row - 2;
+			console.log(reportBaseIndex)
 			var key = Object.keys(report)[reportBaseIndex];
 			sheet1.set(1, row, key);
 			if (report[key].TotalDelivery === undefined) {

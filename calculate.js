@@ -6,7 +6,7 @@ module.exports = {
 			if (Object.keys(job.Assets) && Object.keys(job.Assets).length !== 0) {
 				// FIXME: more than one asset can be assigned to a job
 				var assetKey = Object.keys(job.Assets)[0];
-				key = job.Assets[assetKey].UserName;
+				key = job.Assets[assetKey].UserName;				
 			} else {
 				key = "Not Assigned";
 			}
@@ -19,6 +19,9 @@ module.exports = {
 		}
 		if (report[key] === undefined) {
 			report[key] = {};
+			if (params.query.usertype === "BIKE_MESSENGER") {
+				report[key].UserId = Object.keys(job.Assets)[0];
+			}			
 			report[key].TotalDelivery = 0;
 			report[key].TotalProductPrice = 0;
 			report[key].TotalDeliveryCharge = 0;
@@ -28,7 +31,7 @@ module.exports = {
 			report[key].TotalCancelled = 0;				
 		}
 
-		if (report[key] !== undefined) {
+		if (report[key] !== undefined) {			
 			report[key].TotalDelivery += 1;
 			report[key].TotalProductPrice += parseInt(job.Order.OrderCart.SubTotal);				
 			report[key].TotalDeliveryCharge += parseInt(job.Order.OrderCart.ServiceCharge);
