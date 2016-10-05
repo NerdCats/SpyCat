@@ -6,8 +6,9 @@ module.exports = {
 		var workbookName = Date.now().toString() + 'summary.xlsx';
 		var reportFileName = directoryName + workbookName;
 
-	 	var workbook = excelbuilder.createWorkbook(directoryName, workbookName);					 	
-	 	var sheet1 = workbook.createSheet('sheet1', 10, 12);
+	 	var workbook = excelbuilder.createWorkbook(directoryName, workbookName);
+	 	console.log(Object.keys(report).length)
+	 	var sheet1 = workbook.createSheet('sheet1', 8, Object.keys(report).length+1);
 	 	sheet1.set(1, 1, 'Name');
 	 	sheet1.set(2, 1, 'Delivery');
 	 	sheet1.set(3, 1, 'Pending');
@@ -48,7 +49,7 @@ module.exports = {
 		var reportFileName = directoryName + workbookName;
 		
 		var workbook = excelbuilder.createWorkbook(directoryName, workbookName);					 	
-	 	var sheet1 = workbook.createSheet('sheet1', 55, report.length);
+	 	var sheet1 = workbook.createSheet('sheet1', 55, report.length + 1);
 
 	 	sheet1.set(1, 1, 'trackingNumber');
 		sheet1.set(2, 1, 'DeliveryType');
@@ -106,8 +107,10 @@ module.exports = {
 		sheet1.set(54, 1, 'ProductType');
 		sheet1.set(55, 1, 'Comment');
 
-		for (var row = 2; row < report.length; row++) {	
+		console.log(report.length);
+		for (var row = 2; row <= (report.length+1); row++) {
 			var e = report[row-2];		
+			console.log(row-2);
 			sheet1.set(1, row, e.trackingNumber);
 			sheet1.set(2, row, e.DeliveryType);
 			sheet1.set(3, row, e.OrderingDate);
