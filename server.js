@@ -28,7 +28,7 @@ router.get('/', function(req, res){
 
 // Parameters:
 // usertype = USER BIKE_MESSENGER ENTERPRISE
-// userid = Asset's user id
+// userid = Asset's user id or username = USER's or ENTERPRISE's UserName
 // startdate = ISOdate
 // enddate = ISOdate
 // generateexcel = boolean
@@ -76,7 +76,7 @@ router.get('/report', function (req, res) {
 
 // Parameters:
 // usertype = USER BIKE_MESSENGER ENTERPRISE
-// userid = Asset's user id
+// userid = Asset's user id or username = USER's or ENTERPRISE's UserName
 // startdate = ISOdate
 // enddate = ISOdate
 // generateexcel = boolean

@@ -11,9 +11,9 @@ module.exports = {
 		    };
 			return dynObj;
 		} else if ((params.query.usertype === "USER" || params.query.usertype === "ENTERPRISE") 
-			&& params.query.userid && params.query.userid.length === 24) {
+			&& params.query.username) {
 			return {
-				"User.UserId" : params.query.userid,
+				"User.UserName" : params.query.username,
 				"CreateTime" : {
 			        $gte: new Date(params.query.startdate),
 			        $lt: new Date(params.query.enddate),
