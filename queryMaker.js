@@ -10,8 +10,7 @@ module.exports = {
 		        $lt: new Date(params.query.enddate),
 		    };
 			return dynObj;
-		} else if ((params.query.usertype === "USER" || params.query.usertype === "ENTERPRISE") 
-			&& params.query.username) {
+		} else if (params.query.username) {
 			return {
 				"User.UserName" : params.query.username,
 				"CreateTime" : {

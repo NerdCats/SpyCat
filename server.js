@@ -13,7 +13,7 @@ var assert = require('assert');
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://gofetch.cloudapp.net:27017/taskcat';
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 80;
 var router = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: true }));
