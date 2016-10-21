@@ -37,5 +37,24 @@ module.exports = {
 				    },
 				    "User.Type" : params.query.usertype || "ENTERPRISE"
 				}
+	},
+
+	productSearchQuery : function (area, keyword) {
+		console.log(area + " " + keyword)
+
+		return {
+	        $and:[            
+	            {
+	                "SupportedAreas": { 
+	                    $in: [new RegExp(area,'i')]
+	                }
+	            },
+	            {
+	                "ProductCategories": { 
+	                    $in: [new RegExp(keyword,'i')]
+	                }
+	            }
+	        ]        
+	    }
 	}
 }

@@ -108,8 +108,51 @@ router.get('/details', function (req, res) {
 	}
 });
 
-router.post('/product', function (res, req) {
-	console.log(req)
+router.post('/product', function (req, res) {
+	console.log(req.body);
+	var product = req.body;
+	MongoClient.connect(productDbUrl, function (err, db) {
+		assert.equal(null, err);
+		db.collection('stores').insert(product, function (err, result) {
+			assert.equal(null, err);
+			db.close();
+			res.json({ msg: "successfull" });		
+		});
+	})
+})
+
+router.get('/store-search', function (req, res) {
+	var area = req.query.area;
+	var keyword = req.query.keyword;
+	var stores = [];
+	var query = queryMaker.productSearchQuery(area, keyword);
+	
+	console.log(query)
+	MongoClient.connect(productDbUrl, function (err, db) {
+		var cursor = db.collection('stores').find(query);
+		cursor.each(function (err, store) {
+			// console.log(store)
+			if (store!== null) {
+				var _store = {
+					Email: 				store.Email,
+					Logo: 				store.Logo,
+					Image: 				store.Image,
+					PhoneNumber: 		store.PhoneNumber,
+					Address: 			store.Address,
+					EnterpriseUserId: 	store.EnterpriseUserId,
+					StoreName: 			store.StoreName,
+					StoreId: 			store.StoreId,
+					ProductCategories: 	store.ProductCategories,
+					SupportedAreas : 	store.SupportedAreas
+				};
+				stores.push(_store);   		 
+			} else {
+				db.close();
+				console.log("closing db")
+				res.json({ data: stores })
+			}			
+		})
+	})
 })
 
 app.use('/api', router);
