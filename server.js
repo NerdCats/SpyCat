@@ -155,6 +155,20 @@ router.get('/store-search', function (req, res) {
 	})
 })
 
+router.get('/store', function (req, res) {
+	var ObjectId = require('mongodb').ObjectID;
+	var id =  new ObjectId(req.query.storeid);
+	console.log(req.query.storeid)
+	MongoClient.connect(productDbUrl, function (err, db) {
+		db.collection('stores').findOne({_id: id}, function (err, doc) {
+			console.log(doc);
+			db.close();
+			res.json({store: doc})
+		});
+		
+	})
+})
+
 app.use('/api', router);
 
 app.listen(port);
