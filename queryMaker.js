@@ -41,20 +41,34 @@ module.exports = {
 
 	productSearchQuery : function (area, keyword) {
 		console.log(area + " " + keyword)
-
-		return {
-	        $and:[            
-	            {
-	                "SupportedAreas": { 
-	                    $in: [new RegExp(area,'i')]
-	                }
-	            },
-	            {
-	                "ProductCategories": { 
-	                    $in: [new RegExp(keyword,'i')]
-	                }
-	            }
-	        ]        
-	    }
+	    return {
+	    	
+		    $and: [
+		        {
+		            "SupportedAreas": {
+		                $in: [ new RegExp(area, 'i')]
+		            }
+		        },
+		        {
+		            $or: [
+		                    {
+		                        "ProductCategories": {
+		                            $in: [new RegExp(keyword,'i')]
+		                        }
+		                    },
+		                    {
+		                        "StoreName" : new RegExp(keyword,'i')
+		                    },
+		                    {
+		                        "Products": {
+		                            $elemMatch : {
+		                                "Name": new RegExp(keyword,'i')
+		                            }
+		                        }
+		                    }
+		                 ]
+		        }
+		    ]
+		}
 	}
 }
