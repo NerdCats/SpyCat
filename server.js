@@ -139,6 +139,7 @@ router.get('/store-search', function (req, res) {
 					Image: 				store.Image,
 					PhoneNumber: 		store.PhoneNumber,
 					Address: 			store.Address,
+					Type:				store.Type,
 					EnterpriseUserId: 	store.EnterpriseUserId,
 					StoreName: 			store.StoreName,
 					StoreId: 			store.StoreId,
