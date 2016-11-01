@@ -169,6 +169,20 @@ router.get('/store', function (req, res) {
 	})
 })
 
+
+
+router.post('/subscribe', function (req, res) {
+	console.log(req.body);
+	var email = req.body;
+	MongoClient.connect(productDbUrl, function (err, db) {
+		assert.equal(null, err);
+		db.collection('subscribed').insert(email, function (err, result) {
+			assert.equal(null, err);
+			db.close();
+			res.json({ msg: "successfull" });		
+		});
+	})
+})
 app.use('/api', router);
 
 app.listen(port);
