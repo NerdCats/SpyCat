@@ -14,7 +14,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://gofetch.cloudapp.net:27017/taskcat';
 var productDbUrl = 'mongodb://gofetch.cloudapp.net:27017/test';
 
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 80;
 var router = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -84,12 +84,13 @@ router.get('/details', function (req, res) {
 			var cursor = db.collection('Jobs').find(query);
 			cursor.each(function (err, job) {
 				assert.equal(err, null);
-				if(job!=null){				
-					report.push(job);
+				if(job!=null){		
+					var entry = calculate.detailsReport(report, job);					
+					report.push(entry);
 				} else {
 					db.close();
 					if (req.query.generateexcel == "true") {
-						var excelReport = excelCreator.getSummaryReport(report);
+						var excelReport = excelCreator.getDetailsReport(report);
 						
 						excelReport.workbook.save(function(ok){
 							console.log(ok)
