@@ -12,28 +12,67 @@ module.exports = {
 			return dynObj;
 		} else if (params.query.username) {
 			return {
-				"User.UserName" : params.query.username,
-				"CreateTime" : {
-			        $gte: new Date(params.query.startdate),
-			        $lt: new Date(params.query.enddate),
-			    }
+				$or: [
+					{
+						"CreateTime" : {
+				        	$gte: new Date(params.query.startdate),
+					        $lt: new Date(params.query.enddate),
+					    }
+					},
+					{
+						"CompletionTime": {
+				        	$gte: new Date(params.query.startdate),
+					        $lt: new Date(params.query.enddate),
+					    }
+					},
+					{
+						"State" : "IN_PROGRESS"
+					}
+				],
+				"User.UserName" : params.query.username				
 			}
 		}
 
 		else if (params.query.usertype === "BIKE_MESSENGER") {
 			return {
-					"CreateTime" : {
-					        $gte: new Date(params.query.startdate),
-					        $lt: new Date(params.query.enddate),
-				    }				 
+					$or: [
+						{
+							"CreateTime" : {
+					        	$gte: new Date(params.query.startdate),
+						        $lt: new Date(params.query.enddate),
+						    }
+						},
+						{
+							"CompletionTime": {
+					        	$gte: new Date(params.query.startdate),
+						        $lt: new Date(params.query.enddate),
+						    }
+						},
+						{
+							"State" : "IN_PROGRESS"
+						}
+					]			 
 				}
 		}
 		else 
 			return {
-					"CreateTime" : {
-					        $gte: new Date(params.query.startdate),
-					        $lt: new Date(params.query.enddate),
-				    },
+					$or: [
+						{
+							"CreateTime" : {
+					        	$gte: new Date(params.query.startdate),
+						        $lt: new Date(params.query.enddate),
+						    }
+						},
+						{
+							"CompletionTime": {
+					        	$gte: new Date(params.query.startdate),
+						        $lt: new Date(params.query.enddate),
+						    }
+						},
+						{
+							"State" : "IN_PROGRESS"
+						}
+					],
 				    "User.Type" : params.query.usertype || "ENTERPRISE"
 				}
 	},
