@@ -44,6 +44,16 @@ module.exports = {
 		else return {valid: true};		
 	},
 
+	userListParamChecker: function (params) {
+		if (!params.query.usertype) {
+			return { valid : false, msg: "usertype is not available" }
+		}
+		else if (!params.query.usertype === "ENTERPRISE" || !params.query.type === "BIKE_MESSENGER") {
+			return { valid : false, msg: "usertype must be ENTERPRISE or BIKE_MESSENGER" }
+		}
+		return { valid : true }
+	},
+
 	getProductNames : function (PackageList) {
 		var packages = PackageList.map(function (package) {
 			return  "Name: " + package.Item + 

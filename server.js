@@ -109,6 +109,34 @@ router.get('/details', function (req, res) {
 	}
 });
 
+router.get('/user-list', function (req, res) {
+	var paramValid = utility.userListParamChecker(req);
+	console.log(paramValid);
+	if (!paramValid.valid) {
+		res.json({ error : paramValid.msg });
+	} else {
+		var report = [];
+		MongoClient.connect(url, function (err, db) {
+			assert.equal(null, err);
+			var query = queryMaker.userListQuery(req);
+			console.log({"Type" : req.query.usertype}, {"_id": 1, "UserName": 1});
+			var userList = db.collection('Users').find({"Type" : req.query.usertype}, {"_id": 1, "UserName": 1}).toArray(function (err, result) {
+				console.log(result.length)
+				if (err) {
+			    	console.log(err);
+			    } else if (result.length) {			    	
+			        res.json({ data: result })
+			      } else {
+			      	res.json({ error: "No document(s) found with defined find criteria!" })			      
+			      }
+			      //Close connection
+			      db.close();
+			});
+			
+		})
+	}
+})
+
 router.post('/product', function (req, res) {
 	console.log(req.body);
 	var product = req.body;

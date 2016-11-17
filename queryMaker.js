@@ -108,5 +108,10 @@ module.exports = {
 		        }
 		    ]
 		}
+	},
+
+	userListQuery: function (params) {
+		console.log(params.query.usertype)
+		return {"Type" : params.query.usertype}, {"_id": 1, "UserName": 1}
 	}
 }
