@@ -125,17 +125,28 @@ router.get('/user-list', function (req, res) {
 				if (err) {
 			    	console.log(err);
 			    } else if (result.length) {			    	
-			        res.json({ data: result })
-			      } else {
-			      	res.json({ error: "No document(s) found with defined find criteria!" })			      
-			      }
-			      //Close connection
-			      db.close();
+					res.json({ data: result })
+				} else {
+					res.json({ error: "No document(s) found with defined find criteria!" })			      
+				}
+				console.log("db closed");
+				db.close();
 			});
 			
 		})
 	}
-})
+});
+
+router.get('/job/:jobid', function (req, res) {
+	console.log(req.params.jobid);
+	MongoClient.connect(url, function (err, db) {
+		assert.equal(null, err);		
+		db.collection('Jobs').findOne({"HRID" : req.params.jobid}, function (err, job) {		
+			db.close();
+			res.send(JSON.stringify(job))
+		});
+	});
+});
 
 router.post('/product', function (req, res) {
 	console.log(req.body);
