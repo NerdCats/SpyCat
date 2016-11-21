@@ -48,7 +48,7 @@ module.exports = {
 		var reportFileName = directoryName + workbookName;
 		
 		var workbook = excelbuilder.createWorkbook(directoryName, workbookName);					 	
-	 	var sheet1 = workbook.createSheet('sheet1', 55, report.length + 1);
+	 	var sheet1 = workbook.createSheet('sheet1', 56, report.length + 1);
 
 	 	sheet1.set(1, 1, 'trackingNumber');
 		sheet1.set(2, 1, 'DeliveryType');
@@ -105,6 +105,7 @@ module.exports = {
 		sheet1.set(53, 1, 'KM');
 		sheet1.set(54, 1, 'ProductType');
 		sheet1.set(55, 1, 'Comment');
+		sheet1.set(56, 1, 'NoteToDeliveryMan');
 
 		console.log(report.length);
 		for (var row = 2; row <= (report.length+1); row++) {
@@ -165,6 +166,7 @@ module.exports = {
 			sheet1.set(53, row, e.KM);
 			sheet1.set(54, row, e.ProductType);
 			sheet1.set(55, row, e.Comment);
+			sheet1.set(56, row, e.SpecialNote);
 
 		}
 
