@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 
 var assert = require('assert');
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://gofetch.cloudapp.net:27017/taskcat';
+var url = 'mongodb://gobd:Beattraffic1@gofetch.cloudapp.net:27017/taskcat';
 var productDbUrl = 'mongodb://gofetch.cloudapp.net:27017/test';
 
 var port = process.env.PORT || 8000;
