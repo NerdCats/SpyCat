@@ -109,6 +109,46 @@ router.get('/details', function (req, res) {
 	}
 });
 
+
+router.get('/detailssummary', function (req, res) {
+	var paramValid = utility.reportParamChecker(req);
+	if (!paramValid.valid) {
+		res.json({ error : paramValid.msg })
+	} else {		
+		var report = [];
+		MongoClient.connect(url, function (err, db) {
+			assert.equal(null, err);
+			var query = queryMaker.reportQuery(req);
+			console.log(req.query.generateexcel);
+			console.log(query)
+			var cursor = db.collection('Jobs').find(query);
+			cursor.each(function (err, job) {
+				assert.equal(err, null);
+				if(job!=null){		
+					var entry = calculate.detailsReport(report, job);					
+					report.push(entry);
+				} else {
+					db.close();
+					if (req.query.generateexcel == "true") {
+						var excelReport = excelCreator.getDetailsSummaryReport(report);
+						
+						excelReport.workbook.save(function(ok){
+							console.log(ok)
+							console.log(excelReport.workbookFilePath)
+							if (!ok) {								
+								res.download(excelReport.workbookFilePath);
+							} else							
+								res.json({ errorMessage: "couldn't create excel report!"});
+						});						
+					} else {
+						res.json({ data: report });
+					}
+				}
+			})
+		});
+	}
+});
+
 router.get('/user-list', function (req, res) {
 	var paramValid = utility.userListParamChecker(req);
 	console.log(paramValid);

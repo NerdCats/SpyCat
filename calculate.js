@@ -59,16 +59,23 @@ module.exports = {
 		var entry = {};
 
 		entry.trackingNumber = job.HRID
-		entry.DeliveryType = job.Order.Type;
 
+		if (job.Order.Type == "ClassifiedDelivery" && job.Order.Variant == "enterprise") {
+			entry.DeliveryType = "B2B Delivery";	
+		} else if (job.Order.Type == "ClassifiedDelivery" && job.Order.Variant == "default") {
+			entry.DeliveryType = "B2B with Cash Delivery";
+		} else {
+			entry.DeliveryType = "Delivery";
+		}
+		
 		entry.Status = job.State;
 		entry.PaymentStatus = job.PaymentStatus;
 
 		entry.OrderingDate = utility.getDate(job.CreateTime);
 		entry.OrderingTime = utility.getTime(job.CreateTime);
 
-		entry.CompletionETADate = "Not Completed";
-		entry.CompletionETATime = "Not Completed";
+		entry.CompletionETADate = utility.getDate(job.Order.ETA);
+		entry.CompletionETATime = utility.getTime(job.Order.ETA);
 		if (job.Order.ETA !== undefined) {
 			entry.CompletionETADate = utility.getDate(job.ETA);
 			entry.CompletionETATime = utility.getTime(job.ETA);
@@ -104,7 +111,7 @@ module.exports = {
 		entry.PickupStatus = job.Tasks[1].State;		
 		entry.PickupETADate;
 		entry.PickupETATime = "Not Mentioned";
-		if (job.Order.JobTaskETAPreference !== undefined && job.Order.JobTaskETAPreference.length > 0) {
+		if (job.Order.JobTaskETAPreference !== null && job.Order.JobTaskETAPreference !== undefined && job.Order.JobTaskETAPreference.length > 0) {
 			var pickupEta = utility.getJobTaskPreferenceETA("PackagePickUp" ,job.Order.JobTaskETAPreference);
 			if (pickupEta) {
 				entry.PickupETADate = utility.getDate(pickupEta.ETA);
@@ -124,7 +131,7 @@ module.exports = {
 		entry.DeliveryETADate;
 		entry.DeliveryETATime = "Not Mentioned";
 		
-		if (job.Order.JobTaskETAPreference !== undefined && job.Order.JobTaskETAPreference.length > 0) {
+		if (job.Order.JobTaskETAPreference !== null && job.Order.JobTaskETAPreference !== undefined && job.Order.JobTaskETAPreference.length > 0) {
 			var deliveryEta = utility.getJobTaskPreferenceETA("Delivery" ,job.Order.JobTaskETAPreference);			
 			if (deliveryEta) {
 				entry.DeliveryETADate = utility.getDate(deliveryEta.ETA);
@@ -154,7 +161,7 @@ module.exports = {
 
 			entry.CashDeliveryETADate;
 			entry.CashDeliveryETATime = "Not Mentioned";
-			if (job.Order.JobTaskETAPreference !== undefined && job.Order.JobTaskETAPreference.length > 0) {
+			if (job.Order.JobTaskETAPreference !== null && job.Order.JobTaskETAPreference !== undefined && job.Order.JobTaskETAPreference.length > 0) {
 				var cashDeliveryEta = utility.getJobTaskPreferenceETA("SecureCashDelivery" ,job.Order.JobTaskETAPreference);				
 				if (cashDeliveryEta) {
 					entry.CashDeliveryETADate = utility.getDate(cashDeliveryEta.ETA);
@@ -170,7 +177,7 @@ module.exports = {
 		
 
 		
-		entry.VendorInvoiceNo = null;
+		entry.VendorInvoiceNo = job.Order.ReferenceInvoiceId;
 		entry.Commission = null;
 		entry.CashRecieved = null;
 		entry.KM = null;
