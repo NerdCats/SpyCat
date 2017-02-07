@@ -12,6 +12,8 @@ var bodyParser = require('body-parser');
 var assert = require('assert');
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://gobd:Beattraffic1@gofetch.cloudapp.net:27017/taskcat';
+var SubscriptionDBurl = 'mongodb://gobd:Beattraffic1@gofetch.cloudapp.net:27017/taskcatdev';
+
 var productDbUrl = 'mongodb://gofetch.cloudapp.net:27017/test';
 
 var port = process.env.PORT || 8000;
@@ -254,9 +256,9 @@ router.get('/store', function (req, res) {
 router.post('/subscribe', function (req, res) {
 	console.log(req.body);
 	var email = req.body;
-	MongoClient.connect(productDbUrl, function (err, db) {
+	MongoClient.connect(SubscriptionDBurl, function (err, db) {
 		assert.equal(null, err);
-		db.collection('subscribed').insert(email, function (err, result) {
+		db.collection('Subscription').insert(email, function (err, result) {
 			assert.equal(null, err);
 			db.close();
 			res.json({ msg: "successfull" });		
