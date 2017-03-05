@@ -14,7 +14,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://gobd:Beattraffic1@gofetch.cloudapp.net:27017/taskcat';
 var SubscriptionDBurl = 'mongodb://gobd:Beattraffic1@gofetch.cloudapp.net:27017/taskcatdev';
 
-var productDbUrl = 'mongodb://gofetch.cloudapp.net:27017/taskcatdev';
+var productDbUrl = 'mongodb://gobd:Beattraffic1@gofetch.cloudapp.net:27017/taskcatdev';
 
 var port = process.env.PORT || 8000;
 var router = express.Router();
@@ -203,18 +203,16 @@ router.post('/product', function (req, res) {
 	})
 })
 
-router.get('/store-search', function (req, res) {
+router.get('/store-search', function (req, res) {	
 	var area = req.query.area;
 	var keyword = req.query.keyword;
 	var stores = [];
-	var query = queryMaker.productSearchQuery(area, keyword);
-	
+	var query = queryMaker.productSearchQuery(area, keyword);	
 	console.log(query)
 	MongoClient.connect(productDbUrl, function (err, db) {
 		var cursor = db.collection('stores').find(query);
-		cursor.each(function (err, store) {
-			// console.log(store)
-			if (store!== null) {
+		cursor.each(function (err, store) {			
+			if (store!== null) {				
 				var _store = {
 					Email: 				store.Email,
 					Logo: 				store.Logo,
