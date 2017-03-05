@@ -14,7 +14,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://gobd:Beattraffic1@gofetch.cloudapp.net:27017/taskcat';
 var SubscriptionDBurl = 'mongodb://gobd:Beattraffic1@gofetch.cloudapp.net:27017/taskcatdev';
 
-var productDbUrl = 'mongodb://gofetch.cloudapp.net:27017/test';
+var productDbUrl = 'mongodb://gofetch.cloudapp.net:27017/taskcatdev';
 
 var port = process.env.PORT || 8000;
 var router = express.Router();
