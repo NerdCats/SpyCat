@@ -1,0 +1,242 @@
+{
+  "EnterpriseUserName": "North End",
+  "Email": "North.End@gmail.com",
+  "Logo": "",
+  "Image": "",
+  "PhoneNumber": "01911627483",
+  "Address": "Road 23, Gulshan 1",
+  "EnterpriseUserId": "58084fbf1803732678f17925",
+  "StoreName": "North End",
+  "StoreId": "580864411803733170fcec80",
+  "ProductCategories": [
+    "Coffee",
+    "Coffes",
+    "Cold beverage",
+    "Cold coffee",
+    "Cold refreshment"
+  ],
+  "SupportedAreas": [
+    "Gulshan 1",
+    "Banani",
+    "Rampura",
+    "Gulshan 2",
+    "Baridhara",
+    "Mohakhali DOHS ",
+    "Banani DOHS",
+    "Baridhara DOHS",
+    "Niketan",
+    "Mohakhali",
+    "Bashundhara",
+    "Nikunjo  2",
+    "Nikunjo  1"
+  ],
+  "Products": [
+    {
+      "Name": "Espresso Single",
+      "ShortDescription": "",
+      "Price": 120.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Espresso Double",
+      "ShortDescription": "",
+      "Price": 155.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Macchiato Single",
+      "ShortDescription": "",
+      "Price": 140.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Macchiato Double",
+      "ShortDescription": "",
+      "Price": 175.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Regular Large Americano Single",
+      "ShortDescription": "",
+      "Price": 140.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Regular Large Americano Double",
+      "ShortDescription": "",
+      "Price": 250.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Cappuccino or Latte Single",
+      "ShortDescription": "",
+      "Price": 165.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Cappuccino or Latte Double",
+      "ShortDescription": "",
+      "Price": 300.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Vanilla or Hazelnut Latte Single",
+      "ShortDescription": "",
+      "Price": 200.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Vanilla or Hazelnut Latte Double",
+      "ShortDescription": "",
+      "Price": 330.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Mocha or White Mocha Single",
+      "ShortDescription": "",
+      "Price": 225.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Mocha or White Mocha Double",
+      "ShortDescription": "",
+      "Price": 360.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Mini Cappuccino",
+      "ShortDescription": "",
+      "Price": 140.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Hot Chocolate Regular",
+      "ShortDescription": "",
+      "Price": 190.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Hot Chocolate Large",
+      "ShortDescription": "",
+      "Price": 320.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Tea Regular",
+      "ShortDescription": "",
+      "Price": 120.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Tea Large",
+      "ShortDescription": "",
+      "Price": 180.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Kids Hot Chocolate",
+      "ShortDescription": "",
+      "Price": 110.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Café Freddo Regular",
+      "ShortDescription": "",
+      "Price": 210.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Café Freddo Large",
+      "ShortDescription": "",
+      "Price": 310.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Vanilla or Hazelnut Regular",
+      "ShortDescription": "",
+      "Price": 245.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Vanilla or Hazelnut Large",
+      "ShortDescription": "",
+      "Price": 345.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    },
+    {
+      "Name": "Mocha or White Mocha Regular",
+      "ShortDescription": "",
+      "Price": 265.0,
+      "ProductCategories": [
+        "Coffee"
+      ],
+      "Id": "58086ba01803733170fced41"
+    }
+  ]
+}
