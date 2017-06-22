@@ -127,7 +127,8 @@ module.exports = {
 
 
 		// Delivery Info
-		entry.DeliveryStatus = job.Tasks[2].State;
+		var lastDeliveryTask = job.Tasks.length - 1;
+		entry.DeliveryStatus = job.Tasks[lastDeliveryTask].State;
 		entry.DeliveryETADate;
 		entry.DeliveryETATime = "Not Mentioned";
 		
