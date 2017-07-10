@@ -128,7 +128,15 @@ module.exports = {
 
 		// Delivery Info
 		var lastDeliveryTask = job.Tasks.length - 1;
-		entry.DeliveryStatus = job.Tasks[lastDeliveryTask].State;
+		var variantString = '';
+		var lastTaskvariant = job.Tasks[lastDeliveryTask].Variant;
+		if(lastTaskvariant !== 'default'){
+			lastTaskvariant = titleCase(lastTaskvariant);
+			variantString = lastTaskvariant + " ";
+		}
+
+			entry.DeliveryStatus = variantString + job.Tasks[lastDeliveryTask].State + " ";
+		
 		entry.DeliveryETADate;
 		entry.DeliveryETATime = "Not Mentioned";
 		
@@ -184,6 +192,11 @@ module.exports = {
 		entry.KM = null;
 		entry.ProductType = null;
 		entry.Comment = null;
+
+
+		function titleCase(str) {
+			return str.charAt(0).toUpperCase() + str.slice(1);
+		}
 
 		return entry;
 	}
