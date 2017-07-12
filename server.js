@@ -16,7 +16,7 @@ var SubscriptionDBurl = 'mongodb://gobd:Beattraffic1@gofetch.cloudapp.net:27017/
 
 var productDbUrl = 'mongodb://gobd:Beattraffic1@gofetch.cloudapp.net:27017/taskcatdev';
 
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 8000;
 var router = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: true }));

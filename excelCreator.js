@@ -177,52 +177,54 @@ module.exports = {
 		var reportFileName = directoryName + workbookName;
 		
 		var workbook = excelbuilder.createWorkbook(directoryName, workbookName);					 	
-	 	var sheet1 = workbook.createSheet('sheet1', 19, report.length + 1);
+	 	var sheet1 = workbook.createSheet('sheet1', 20, report.length + 1);
 	 	function returnTaskStatus(report) {
 	 		return "Pickup: " + report.PickupStatus + ", Completion Date: " + report.PickupCompleteDate + "\n" +
 	 				"Delivery: " + report.DeliveryStatus + ", Completion Date: " + report.DeliveryCompleteDate + "\n" + 
 	 				"CashDelivery: " + report.CashDeliveryStatus + ", Completion Date: " + report.CashDeliveryCompleteDate;
 	 	}
 	 	sheet1.set(1, 1, 'TrackingNumber');
-		sheet1.set(2, 1, 'VendorInvoiceNo');
+		sheet1.set(2, 1, 'Vendor Invoice No');
 		sheet1.set(3, 1, 'Status');
 		sheet1.set(4, 1, 'Pickup Status');
-		sheet1.set(5, 1, 'Delivery Status');
-		sheet1.set(6, 1, 'Cash Delivery Status');
-		sheet1.set(7, 1, 'DeliveryType');
-		sheet1.set(8, 1, 'OrderingDate');						
-		sheet1.set(9, 1, 'CompleteDate');		
-		sheet1.set(10, 1, 'UserName');		
-		sheet1.set(11, 1, 'PickupAddress');		
-		sheet1.set(12, 1, 'DeliveryAddress');
-		sheet1.set(13, 1, 'Product');
-		sheet1.set(14, 1, 'Weight');
-		sheet1.set(15, 1, 'DeliveryCharge');		
-		sheet1.set(16, 1, 'Commission');		
-		sheet1.set(17, 1, 'TotalProductPrice');
-		sheet1.set(18, 1, 'Total');		
-		sheet1.set(19, 1, 'PaymentStatus');		
+		sheet1.set(5, 1, 'Pickup Completion Date');
+		sheet1.set(6, 1, 'Delivery Status');
+		sheet1.set(7, 1, 'Cash Delivery Status');
+		sheet1.set(8, 1, 'Ordering Date');
+		sheet1.set(9, 1, 'CompleteDate');						
+		sheet1.set(10, 1, 'Delivery Type');		
+		sheet1.set(11, 1, 'UserName');		
+		sheet1.set(12, 1, 'PickupAddress');		
+		sheet1.set(13, 1, 'DeliveryAddress');
+		sheet1.set(14, 1, 'Product');
+		sheet1.set(15, 1, 'Weight');
+		sheet1.set(16, 1, 'DeliveryCharge');		
+		sheet1.set(17, 1, 'Commission');		
+		sheet1.set(18, 1, 'TotalProductPrice');
+		sheet1.set(19, 1, 'Total');		
+		sheet1.set(20, 1, 'PaymentStatus');		
 		for (var row = 2; row <= (report.length+1); row++) {
 			var e = report[row-2];					
 			sheet1.set(1, row, e.trackingNumber);			
 			sheet1.set(2, row, e.VendorInvoiceNo);
 			sheet1.set(3, row, e.Status);
-			sheet1.set(4, row, e.PickupStatus + "\nDate: " + e.PickupCompleteDate);
-			sheet1.set(5, row, e.DeliveryStatus + "\nDate: " + e.DeliveryCompleteDate);
-			sheet1.set(6, row, e.CashDeliveryStatus + "\nDate: " + e.CashDeliveryCompleteDate);
-			sheet1.set(7, row, e.DeliveryType);
+			sheet1.set(4, row, e.PickupStatus);
+			sheet1.set(5, row, e.PickupCompleteDate);
+			sheet1.set(6, row, e.DeliveryStatus + "\nDate: " + e.DeliveryCompleteDate);
+			sheet1.set(7, row, e.CashDeliveryStatus + "\nDate: " + e.CashDeliveryCompleteDate);
 			sheet1.set(8, row, e.OrderingDate);
-			sheet1.set(9, row, e.CompleteDate);			
-			sheet1.set(10, row, e.UserName);
-			sheet1.set(11, row, e.PickupAddress);
-			sheet1.set(12, row, e.DeliveryAddress);			
-			sheet1.set(13, row, e.Product);
-			sheet1.set(14, row, e.Weight);
-			sheet1.set(15, row, e.DeliveryCharge);			
-			sheet1.set(16, row, e.Commission);			
-			sheet1.set(17, row, e.TotalProductPrice);
-			sheet1.set(18, row, e.Total);			
-			sheet1.set(19, row, e.PaymentStatus);			
+			sheet1.set(9, row, e.CompleteDate);
+			sheet1.set(10, row, e.DeliveryType);			
+			sheet1.set(11, row, e.UserName);
+			sheet1.set(12, row, e.PickupAddress);
+			sheet1.set(13, row, e.DeliveryAddress);			
+			sheet1.set(14, row, e.Product);
+			sheet1.set(15, row, e.Weight);
+			sheet1.set(16, row, e.DeliveryCharge);			
+			sheet1.set(17, row, e.Commission);			
+			sheet1.set(18, row, e.TotalProductPrice);
+			sheet1.set(19, row, e.Total);			
+			sheet1.set(20, row, e.PaymentStatus);			
 		}
 
 		return {
