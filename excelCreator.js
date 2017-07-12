@@ -210,7 +210,7 @@ module.exports = {
 			sheet1.set(3, row, e.Status);
 			sheet1.set(4, row, e.PickupStatus);
 			sheet1.set(5, row, e.PickupCompleteDate);
-			sheet1.set(6, row, e.DeliveryStatus + "\nDate: " + e.DeliveryCompleteDate);
+			sheet1.set(6, row, e.DeliveryStatus);
 			sheet1.set(7, row, e.CashDeliveryStatus + "\nDate: " + e.CashDeliveryCompleteDate);
 			sheet1.set(8, row, e.OrderingDate);
 			sheet1.set(9, row, e.CompleteDate);
