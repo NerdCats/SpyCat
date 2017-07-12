@@ -130,7 +130,7 @@ module.exports = {
 		var lastDeliveryTask = job.Tasks.length - 1;
 		var variantString = '';
 		var lastTaskvariant = job.Tasks[lastDeliveryTask].Variant;
-		if(lastTaskvariant !== 'default'){
+		if(lastTaskvariant !== 'default' && lastTaskvariant !== 'retry'){
 			lastTaskvariant = titleCase(lastTaskvariant);
 			variantString = lastTaskvariant + " ";
 		}
