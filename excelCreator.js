@@ -177,7 +177,7 @@ module.exports = {
 		var reportFileName = directoryName + workbookName;
 		
 		var workbook = excelbuilder.createWorkbook(directoryName, workbookName);					 	
-	 	var sheet1 = workbook.createSheet('sheet1', 20, report.length + 1);
+	 	var sheet1 = workbook.createSheet('sheet1', 21, report.length + 1);
 	 	function returnTaskStatus(report) {
 	 		return "Pickup: " + report.PickupStatus + ", Completion Date: " + report.PickupCompleteDate + "\n" +
 	 				"Delivery: " + report.DeliveryStatus + ", Completion Date: " + report.DeliveryCompleteDate + "\n" + 
@@ -202,7 +202,8 @@ module.exports = {
 		sheet1.set(17, 1, 'Commission');		
 		sheet1.set(18, 1, 'TotalProductPrice');
 		sheet1.set(19, 1, 'Total');		
-		sheet1.set(20, 1, 'PaymentStatus');		
+		sheet1.set(20, 1, 'PaymentStatus');	
+		sheet1.set(21, 1, 'Comment');	
 		for (var row = 2; row <= (report.length+1); row++) {
 			var e = report[row-2];					
 			sheet1.set(1, row, e.trackingNumber);			
@@ -224,7 +225,8 @@ module.exports = {
 			sheet1.set(17, row, e.Commission);			
 			sheet1.set(18, row, e.TotalProductPrice);
 			sheet1.set(19, row, e.Total);			
-			sheet1.set(20, row, e.PaymentStatus);			
+			sheet1.set(20, row, e.PaymentStatus);
+			sheet1.set(21, row, e.Comment);		
 		}
 
 		return {
