@@ -58,7 +58,7 @@ module.exports = {
 		var utility = require('./utility');
 		var entry = {};
 
-		entry.trackingNumber = job.HRID
+		entry.trackingNumber = job.HRID;
 
 		if (job.Order.Type == "ClassifiedDelivery" && job.Order.Variant == "enterprise") {
 			entry.DeliveryType = "B2B Delivery";	
@@ -191,7 +191,7 @@ module.exports = {
 		entry.CashRecieved = null;
 		entry.KM = null;
 		entry.ProductType = null;
-		entry.Comment = null;
+		entry.Comment = job.Comment;
 
 
 		function titleCase(str) {
