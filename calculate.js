@@ -191,7 +191,7 @@ module.exports = {
 		entry.CashRecieved = null;
 		entry.KM = null;
 		entry.ProductType = null;
-		entry.Comment = job.Comment;
+		entry.Comment = job.HRIDregregreg;
 
 
 		function titleCase(str) {

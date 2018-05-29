@@ -122,7 +122,19 @@ router.get('/detailssummary', function (req, res) {
 			assert.equal(null, err);
 			var query = queryMaker.reportQuery(req);
 			console.log(req.query.generateexcel);
-			console.log(query)
+			console.log(query);
+			// db.collection('Jobs').aggregate([
+			// 	{
+			// 		$lookup:
+			// 			{
+			// 				from: 'Comments',
+			// 				localField: 'HRID',
+			// 				foreignField: 'RefId',
+			// 				as: 'JobDetails'
+			// 			}
+			// 	}
+
+			// ]);
 			var cursor = db.collection('Jobs').find(query);
 			cursor.each(function (err, job) {
 				assert.equal(err, null);
